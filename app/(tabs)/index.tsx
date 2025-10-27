@@ -1,98 +1,130 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+// import { useFonts } from "expo-font";
 
+import { ScrollView } from "react-native";
+import { courseData } from "../../assets/dataset/coureseData";
+import { iconData } from '../../assets/dataset/iconDataset';
+import Card from "../../components/globals/Card";
+import Header from '../../components/globals/Header';
+import PageHeader from '../../components/globals/PageHeader';
+import SearchBar from '../../components/globals/SearchBar';
+import IconCard from '../../components/globals/iconCard';
+import IconCard1 from '../../components/globals/iconCard1';
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <SafeAreaView style={indexStyles.mainContainer}>
+      <View style={{ flex: 1 }}>
+        {/* <Header /> */}
+        <SearchBar />
+        <ScrollView >
+          
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+
+          <PageHeader heading="Phones" link="explore" />
+          <View><Text 
+          style={{color: "white",
+          fontSize: 18,
+          marginLeft: 12,
+          marginBottom: 8
+          }} 
+          >Brands</Text></View>
+
+          <FlatList
+            data={iconData.slice(0, iconData.length)}
+            showsHorizontalScrollIndicator={false}
+            style={{ height: 120 }}
+            horizontal
+            renderItem={({ item, index }) => {
+              const dummyNames = ['Apple', 'Huawei', 'Samsung', 'Nokia', 'Dell', 'HP', 'Sony', 'LG', 'Lenovo', 'Xiaomi', 'Oppo', 'Vivo', 'OnePlus', 'Asus', 'Motorola'];
+              const label = dummyNames[index % dummyNames.length];
+              return (
+                <IconCard1 icon={item.icon} name={label} />
+              )
+            }}
+            keyExtractor={(_, index) => `others-${index}`}
+          />
+          
+
+          {/* <PageHeader heading="Trending Courses" link="explore" /> */}
+          <FlatList
+            data={courseData.slice(0,4)}
+            numColumns={2}
+            renderItem={({ item, index }) => {
+              return (
+                <Card name={item.courseName} price={item.Price}>
+                  {item.icon}
+                </Card>
+              )
+            }}
+          />
+
+          <View><Text 
+          style={{color: "white",
+          fontSize: 18,
+          marginLeft: 12,
+          marginBottom: 8
+          }} 
+          >Others buy</Text></View>
+          {/* add sqare brackets data in flatlist which scroll right */}
+          <FlatList
+            data={iconData}
+            showsHorizontalScrollIndicator={false}
+            style={{ height: 95 }}
+            horizontal
+            renderItem={({ item, index }) => {
+              return (
+                <IconCard >
+                  {item.icon}
+                </IconCard>
+              )
+            }}
+
+          />
+
+
+          <FlatList
+            data={courseData.slice(0,4)}
+            numColumns={2}
+            renderItem={({ item, index }) => {
+              return (
+                <Card name={item.courseName} price={item.Price}>
+                  {item.icon}
+                </Card>
+              )
+            }}
+          />
+          
+
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+const indexStyles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    textAlign: "center",
+    backgroundColor: "#0b0b0bff"
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  headingText: {
+    color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  box: {
+    width: 100,
+    height: 100,
+    backgroundColor: "red",
+  },
+  image: {
+    flex: 1,
+    width: 200,
+    height: 100,
+
+    margin: "auto",
+    backgroundColor: "#0553",
   },
 });
