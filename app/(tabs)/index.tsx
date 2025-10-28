@@ -1,130 +1,82 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, Text, View, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-// import { useFonts } from "expo-font";
-
-import { ScrollView } from "react-native";
-import { courseData } from "../../assets/dataset/coureseData";
-import { iconData } from '../../assets/dataset/iconDataset';
+// Components
 import Card from "../../components/globals/Card";
-import Header from '../../components/globals/Header';
-import PageHeader from '../../components/globals/PageHeader';
-import SearchBar from '../../components/globals/SearchBar';
-import IconCard from '../../components/globals/iconCard';
-import IconCard1 from '../../components/globals/iconCard1';
+import PageHeader from "../../components/globals/PageHeader";
+import SearchBar from "../../components/globals/SearchBar";
+import IconCard from "../../components/globals/iconCard";
+import IconCard1 from "../../components/globals/iconCard1";
+
 export default function HomeScreen() {
   return (
-    <SafeAreaView style={indexStyles.mainContainer}>
+    <SafeAreaView style={styles.mainContainer}>
       <View style={{ flex: 1 }}>
-        {/* <Header /> */}
-        <SearchBar />
-        <ScrollView >
-          
 
+        <SearchBar />
+
+        <ScrollView>
 
           <PageHeader heading="Phones" link="explore" />
-          <View><Text 
-          style={{color: "white",
-          fontSize: 18,
-          marginLeft: 12,
-          marginBottom: 8
-          }} 
-          >Brands</Text></View>
 
-          <FlatList
-            data={iconData.slice(0, iconData.length)}
-            showsHorizontalScrollIndicator={false}
-            style={{ height: 120 }}
-            horizontal
-            renderItem={({ item, index }) => {
-              const dummyNames = ['Apple', 'Huawei', 'Samsung', 'Nokia', 'Dell', 'HP', 'Sony', 'LG', 'Lenovo', 'Xiaomi', 'Oppo', 'Vivo', 'OnePlus', 'Asus', 'Motorola'];
-              const label = dummyNames[index % dummyNames.length];
-              return (
-                <IconCard1 icon={item.icon} name={label} />
-              )
-            }}
-            keyExtractor={(_, index) => `others-${index}`}
-          />
-          
 
-          {/* <PageHeader heading="Trending Courses" link="explore" /> */}
+          <View>
+            <Text style={styles.subHeading}>Brands</Text>
+          </View>
+
+
+          <IconCard1 />
+
+
+          <View>
+            <Text style={styles.subHeading}>Featured Products</Text>
+          </View>
+
+  
           <FlatList
-            data={courseData.slice(0,4)}
+            data={[1, 2, 3, 4]} 
             numColumns={2}
-            renderItem={({ item, index }) => {
-              return (
-                <Card name={item.courseName} price={item.Price}>
-                  {item.icon}
-                </Card>
-              )
-            }}
+            renderItem={() => <Card />}
+            keyExtractor={(item, index) => `card-${index}`}
           />
 
-          <View><Text 
-          style={{color: "white",
-          fontSize: 18,
-          marginLeft: 12,
-          marginBottom: 8
-          }} 
-          >Others buy</Text></View>
-          {/* add sqare brackets data in flatlist which scroll right */}
+
+          <View>
+            <Text style={styles.subHeading}>Others Buy</Text>
+          </View>
+
+
           <FlatList
-            data={iconData}
+            data={[1, 2, 3, 4, 5, 6]}
             showsHorizontalScrollIndicator={false}
+            horizontal
+            renderItem={() => <IconCard />}
+            keyExtractor={(item, index) => `icon-${index}`}
             style={{ height: 95 }}
-            horizontal
-            renderItem={({ item, index }) => {
-              return (
-                <IconCard >
-                  {item.icon}
-                </IconCard>
-              )
-            }}
-
           />
-
 
           <FlatList
-            data={courseData.slice(0,4)}
+            data={[1, 2, 3, 4]}
             numColumns={2}
-            renderItem={({ item, index }) => {
-              return (
-                <Card name={item.courseName} price={item.Price}>
-                  {item.icon}
-                </Card>
-              )
-            }}
+            renderItem={() => <Card />}
+            keyExtractor={(item, index) => `card2-${index}`}
           />
-          
-
         </ScrollView>
       </View>
     </SafeAreaView>
   );
 }
 
-const indexStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     textAlign: "center",
-    backgroundColor: "#0b0b0bff"
+    backgroundColor: "#0b0b0bff",
   },
-  headingText: {
-    color: "black",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  box: {
-    width: 100,
-    height: 100,
-    backgroundColor: "red",
-  },
-  image: {
-    flex: 1,
-    width: 200,
-    height: 100,
-
-    margin: "auto",
-    backgroundColor: "#0553",
+  subHeading: {
+    color: "white",
+    fontSize: 18,
+    marginLeft: 12,
+    marginBottom: 8,
   },
 });

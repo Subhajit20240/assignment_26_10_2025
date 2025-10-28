@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import PageHeader from '../../components/globals/PageHeader';
@@ -12,7 +12,9 @@ export default function TabTwoScreen() {
     <SafeAreaView style={styles.mainContainer}>
       <View style={{ flex: 1 }}>
          <PageHeader heading="My cart" link="explore" />
+         <ScrollView>
          <Items />
+         </ScrollView>
          
       </View>
     </SafeAreaView>

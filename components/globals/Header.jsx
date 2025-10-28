@@ -1,10 +1,6 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import AntDesign from '@expo/vector-icons/AntDesign';
 
-// The code is mostly correct, but there are two typos in the <Image> component props:
-// 1. "contentFit" is not a valid prop for the standard React Native Image component. 
-//    It is used in 'expo-image', not 'react-native'.
-// 2. "transiton" is a typo and not a valid prop. If you meant "transition", it's also not a valid prop for 'react-native' Image.
 
 const Header = () => {
   return (

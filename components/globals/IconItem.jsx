@@ -16,14 +16,14 @@ const styles = StyleSheet.create({
     height: 75,
     borderRadius: "50%",
     
-    // boxShadowColor:'black',
+
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    justifyContent: 'center', // center vertically
-    alignItems: 'center',     // center horizontally
+    justifyContent: 'center', 
+    alignItems: 'center',     
     backgroundColor: 'white',
     margin: 8
   }

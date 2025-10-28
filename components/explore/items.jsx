@@ -1,19 +1,38 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 
-const ItemRow = ({ name = "Item name", price = 750, qty = 1 }) => {
+const ItemRow = () => {
+
+  const name = "Wireless Headphones";
+  const price = 750;
+  const qty = 1;
+
+  const imageUri1 =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyJPCMSch2P3LrTErO_u32DSbUVg4YR8lwNg&s";
+
+
+  const imageUri2 =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyJPCMSch2P3LrTErO_u32DSbUVg4YR8lwNg&s";
+
   const QtyControls = (
     <View style={styles.qtyRow}>
-      <View style={styles.qtyBtn}><Text style={styles.qtyBtnText}>-</Text></View>
-      <View style={styles.qtyDisplay}><Text style={styles.qtyText}>{qty}</Text></View>
-      <View style={styles.qtyBtn}><Text style={styles.qtyBtnText}>+</Text></View>
+      <View style={styles.qtyBtn}>
+        <Text style={styles.qtyBtnText}>-</Text>
+      </View>
+      <View style={styles.qtyDisplay}>
+        <Text style={styles.qtyText}>{qty}</Text>
+      </View>
+      <View style={styles.qtyBtn}>
+        <Text style={styles.qtyBtnText}>+</Text>
+      </View>
     </View>
   );
 
   return (
     <View>
+      {/* Item 1 */}
       <View style={styles.row}>
-        <View style={styles.thumb} />
+        <Image source={{ uri: imageUri1 }} style={styles.thumb} />
         <View style={styles.info}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.price}>${price}</Text>
@@ -21,31 +40,36 @@ const ItemRow = ({ name = "Item name", price = 750, qty = 1 }) => {
         </View>
       </View>
 
+      {/* Item 2 */}
       <View style={styles.row}>
-        <View style={styles.thumb} />
+        <Image source={{ uri: imageUri2 }} style={styles.thumb} />
         <View style={styles.info}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.price}>${price}</Text>
           {QtyControls}
         </View>
       </View>
-      
-      <View style={[styles.row, {justifyContent: "space-between"}, {backgroundColor:"#2b2f3a"}]}> 
-        <View>
-            <Text style={{color:"white", marginLeft:20, fontSize:20}}>Total</Text>
-        </View>
-        <View>
-            <Text style={{color:"white", fontSize:18, fontWeight:"700"}}>${price * qty}</Text>
-        </View>
+
+      {/* Total Row */}
+      <View
+        style={[
+          styles.row,
+          { justifyContent: "space-between", backgroundColor: "#2b2f3a" },
+        ]}
+      >
+        <Text style={{ color: "white", marginLeft: 20, fontSize: 20 }}>
+          Total
+        </Text>
+        <Text style={{ color: "white", fontSize: 18, fontWeight: "700" }}>
+          ${price * qty}
+        </Text>
       </View>
-      {/* pay now button */}
-        <View style={{backgroundColor:"#1680faff",
-        marginTop:80, 
-             borderRadius:10, alignItems:"center", padding:15}}>
-            <Text style={{color:"white", fontSize:18, fontWeight:"700"}}>Pay Now</Text>
-        </View>
+
+      {/* Pay Now Button */}
+      <View style={styles.payBtn}>
+        <Text style={styles.payBtnText}>Pay Now</Text>
+      </View>
     </View>
-    
   );
 };
 
@@ -54,10 +78,11 @@ export default ItemRow;
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
-    paddingHorizontal: "auto",
+    paddingHorizontal: 20,
     paddingVertical: 22,
     gap: 20,
     alignItems: "center",
+    margin: 20,
   },
   thumb: {
     width: 200,
@@ -73,7 +98,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 4,
   },
-
   price: {
     color: "#8e99a8",
     marginBottom: 8,
@@ -104,5 +128,17 @@ const styles = StyleSheet.create({
   qtyText: {
     color: "#fff",
     fontSize: 14,
+  },
+  payBtn: {
+    backgroundColor: "#1680faff",
+    marginTop: 80,
+    borderRadius: 10,
+    alignItems: "center",
+    padding: 15,
+  },
+  payBtnText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "700",
   },
 });
